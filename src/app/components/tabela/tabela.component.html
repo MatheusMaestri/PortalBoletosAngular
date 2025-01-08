@@ -1,0 +1,64 @@
+<app-filtro (filtroAlterado)="aplicarFiltro($event)"></app-filtro>
+<hr>
+@if (carregando) {
+    <ng-container>
+        <app-carregando class="tabela-dinamica"/>
+    </ng-container>
+} @else {
+  <div class="tabela-dinamica">
+    <div class="table">
+      <mat-accordion>
+        @for (element of dataSource.filteredData; track element) {
+          <mat-expansion-panel>
+            <mat-expansion-panel-header [ngClass]="{'status-red': element.EnviadoCartorio === 'Em aberto', 'status-green': element.EnviadoCartorio !== 'Cartório'}">
+              <mat-panel-title>
+                Titulo: {{ element.Titulo }}
+                -
+                Parcela: {{ element.Parcela }}
+                -
+                {{ element.EnviadoCartorio ? 'Em aberto' : 'Cartório' }} 
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="container">
+              <div class="conteudo">
+                <p><strong>Parcela:</strong> {{ element.Parcela }}</p>
+                <p><strong>Vencimento:</strong> {{ element.Vencimento }}</p>
+                <p><strong>Valor:</strong> {{ element.Valor_Original | currency: 'BRL' }}</p>
+                <p><strong>Status:</strong> {{ element.EnviadoCartorio ? 'Em aberto' : 'Cartório' }}</p>
+              </div>
+              <div class="botoes">
+                <button 
+                  class="btn btn-primary"
+                  (click)="gerarDANFe(element.Titulo, element.serie_nf, element.Empresa)"
+                >
+                  {{ redirecionandoDANFe ? 'Redirecionando...' : 'DANFe' }}
+                </button>
+
+                <hr>
+                <app-modal #modal></app-modal>
+                <button
+                  class="btn btn-primary"
+                  [disabled]="modal.isLoading"
+                  (click)="modal.gerarCodBarras(element.Titulo, element.Parcela, element.serie_nf, element.Empresa)"
+                >
+                  {{ modal.isLoading ? 'Carregando...' : 'Código de Barras' }}
+                </button>
+
+                <button 
+                  class="btn btn-success"
+                  (click)="imprimirBoleto(element.Titulo, element.Parcela, element.serie_nf, element.Empresa)"
+                >
+                  {{ redirecionandoImpressao ? 'Redirecionando...' : 'Imprimir Boleto' }}
+                </button>
+                
+              </div>
+            </div>
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    </div>
+  </div>
+}
+
+  

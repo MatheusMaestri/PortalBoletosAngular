@@ -1,0 +1,32 @@
+<div class="modal" #modalCodBarras>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Copiar Código de Barras</h1>
+        <button type="button" class="btn-close" (click)="fecharModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Título: {{ titulo }}</label>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Código de Barras:</label>
+            <textarea class="form-control" readonly>{{ codigoBarras }}</textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="fecharModal()">Fechar</button>
+        <button 
+          type="button" 
+          class="btn" 
+          [ngClass]="copiar ? 'btn-success' : 'btn-primary'" 
+          (click)="copiarCodigoBarras()"
+        >
+          {{ copiar ? 'Copiado' : 'Copiar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

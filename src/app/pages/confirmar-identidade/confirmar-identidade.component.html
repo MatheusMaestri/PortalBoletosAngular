@@ -1,0 +1,27 @@
+@if (carregando) {
+    <app-carregando />
+} @else {
+    <app-login-padrao
+        titulo="Confirmar Identidade"
+        primeiroBtn="Continuar"
+        segundoBtn="Login"
+        (submit)="submit()"
+        (navegar)="navegar()"
+        [btnEstaHabilitado]="!confirmarIdentidade.valid"
+    >
+        <form [formGroup]="confirmarIdentidade">
+            <app-input-texto
+                formControlName="cnpj_cpf"
+                nomeInput="cnpj_cpf"
+                type="text"
+                label="CPF ou CNPJ" 
+                placeholder="CPF / CNPJ"
+                (input)="limitarEntrada($event)"
+            >
+                <img src="img/pessoa.svg" height="20px" alt="">
+            </app-input-texto>
+        </form>
+    </app-login-padrao>
+}
+
+

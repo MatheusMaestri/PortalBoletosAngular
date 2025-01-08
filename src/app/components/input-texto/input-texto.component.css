@@ -1,0 +1,35 @@
+.input-completo{
+    color: var(--cor-texto);
+    font-size: 16px;
+    text-align: start;
+}
+
+label{
+    margin-bottom: 10px;
+}
+
+input{
+    border: none;
+    border-radius: 8px 0 0 8px;
+    background-color: var(--bg-cinza-secundario);
+    color: var(--cor-texto);
+    font-size: 16px;
+    padding: 12px 20px 12px 20px;
+    width: 100%;
+}
+
+.input-content{
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+}
+
+.icone{
+    padding: 12px;
+    background-color: var(--cor-primaria);
+    border-radius: 0 8px 8px 0;
+}
+
+.icone img{
+    height: 20px;
+}

@@ -1,0 +1,16 @@
+<div class="input-completo">
+    <label [for]="nomeInput"> {{ label }}</label>
+    <div class="input-content">
+        <input 
+            [type]="type"  
+            [placeholder]="placeholder"
+            [value]="value"
+            (input)="onInput($event)"
+        />
+        @if (temIcone) {
+            <div class="icone">
+                <ng-content></ng-content>
+            </div>
+        }
+    </div>
+</div>

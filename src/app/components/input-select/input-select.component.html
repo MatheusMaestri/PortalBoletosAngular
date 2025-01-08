@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label [for]="nomeInput">{{ label }}</label>
+  <select 
+    [id]="nomeInput"
+    class="form-control" 
+    [formControl]="control"
+  >
+  @for (option of options; track option) {
+    <option [value]="option.value">
+      {{ option.label }}
+    </option>
+  }
+  </select>
+</div>

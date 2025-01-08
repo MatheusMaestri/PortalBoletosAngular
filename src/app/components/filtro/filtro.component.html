@@ -1,0 +1,48 @@
+<form [formGroup]="filtroForm" class="section">
+    <div class="pesquisa">
+       <div class="codigo">
+            <app-input-texto
+                formControlName="titulo"
+                nomeInput="titulo"
+                type="text"
+                label="Título" 
+                placeholder="Pesquisar por título"
+                [temIcone]="false"
+            />
+       </div>
+
+       <div class="data">
+            <app-input-texto
+                formControlName="dataInicio"
+                nomeInput="dataInicio"
+                type="date"
+                label="Vencimento de:" 
+                [temIcone]="false"
+            />
+       </div>
+
+       <div class="data">
+            <app-input-texto
+                formControlName="dataFim"
+                nomeInput="dataFim"
+                type="date"
+                label="Até:" 
+                [temIcone]="false"
+            />
+       </div>
+
+       <div class="status">
+            <app-input-select 
+                formControlName="status"
+                nomeInput="status"
+                label="Status"
+                [options]="[
+                    { value: '', label: 'Todos' },
+                    { value: 'em aberto', label: 'Em Aberto' },
+                    { value: 'enviado para cartório', label: 'Enviado para Cartório' }
+                ]"
+            />
+       </div>
+       <button type="button" class="btnLimpar" (click)="limparCampos()">Limpar Campos</button>
+    </div>
+</form>

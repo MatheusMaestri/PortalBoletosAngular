@@ -1,0 +1,33 @@
+<main (keydown.enter)="submit()">
+    <section class="formulario">
+        <img src="/img/empresa.png" width="200px" alt="">
+        <h2>{{ titulo }}</h2>
+        <ng-content></ng-content>
+        <div class="botoes">
+            <button 
+                class="primeiroBtn"
+                (click)="submit()"
+                [disabled]="btnEstaHabilitado"
+            >
+                {{ primeiroBtn }}
+            </button>
+
+            <div class="dividir">
+                <div></div>
+                <span>OU</span>
+                <div></div>
+            </div>
+            
+            <button 
+                class="segundoBtn" 
+                (click)="navegar()"
+            >
+                {{ segundoBtn }}
+            </button>
+        </div>
+    </section>
+    <section class="imagem-login">
+        <h1>Portal Boletos</h1>
+        <img src="/img/imgBoleto.png" alt="Boleto" loading="eager">
+    </section>
+</main>

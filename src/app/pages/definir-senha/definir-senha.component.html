@@ -1,0 +1,29 @@
+<app-login-padrao
+    titulo="Definir Senha"
+    primeiroBtn="Definir Senha"
+    segundoBtn="Login"
+    (submit)="submit()"
+    (navegar)="navegar()"
+    [btnEstaHabilitado]="!definirSenha.valid"
+>
+    <form [formGroup]="definirSenha">
+        <app-input-texto
+            formControlName="senha"
+            type="password"
+            label="Senha" 
+            placeholder=""
+        >
+            <img src="img/senha.svg" height="20px" alt="">
+        </app-input-texto>
+
+        <app-input-texto
+            formControlName="confirmarSenha"
+            type="password"
+            label="Confirmar Senha" 
+            placeholder=""
+        >
+            <img src="img/senha.svg" height="20px" alt="">
+        </app-input-texto>
+    </form>
+</app-login-padrao>
+

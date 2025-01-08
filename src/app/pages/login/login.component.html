@@ -1,0 +1,37 @@
+@if (carregando) {
+    <app-carregando />
+} @else {
+    <app-login-padrao
+        titulo="Faça Login"
+        primeiroBtn="Login"
+        segundoBtn="Cadastre-se"
+        (submit)="submit()"
+        (navegar)="navegarParaCadastro()"
+        [btnEstaHabilitado]="!formularioLogin.valid"
+    >
+        <form [formGroup]="formularioLogin">
+            <app-input-texto
+                formControlName="cnpj_cpf"
+                nomeInput="cnpj_cpf"
+                type="text"
+                label="CPF ou CNPJ"
+                placeholder="CPF / CNPJ"
+                (input)="limitarEntrada($event)"
+            >
+                <img src="img/pessoa.svg" height="20px" alt="">
+            </app-input-texto>
+          
+    
+            <app-input-texto
+                formControlName="senha"
+                type="password"
+                label="Senha" 
+                placeholder=""
+            >
+                <img src="img/senha.svg" height="20px" alt="">
+            </app-input-texto>
+            <span><a [routerLink]="['confirmarIdentidade']">Esqueceu a senha?</a></span>
+        </form>
+    </app-login-padrao>
+}
+

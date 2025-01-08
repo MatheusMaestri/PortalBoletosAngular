@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+
+:root{
+    --cor-primaria: #3e6b95;
+    --cor-texto: #3d3d3d;
+    --cor-secundaria: #1E2772;
+    --bg-cinza: #dddddd;
+    --bg-cinza-secundario: #f1f1f1;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+body, 
+html{
+    height: 100vh;
+    overflow-x: hidden !important;
+}
+
+a{
+    text-decoration: none;
+}
