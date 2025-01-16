@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { LoginPadraoComponent } from '../../components/login-padrao/login-padrao.component';
 import { InputTextoComponent } from '../../components/input-texto/input-texto.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,7 +19,7 @@ import { EmailService } from '../../services/email.service';
 })
 export class CodAcessoComponent {
   formularioCodAcesso!: FormGroup
-  carregando: boolean = false
+  carregando = signal(false)
 
   constructor(
     private router: Router,
@@ -60,9 +60,9 @@ export class CodAcessoComponent {
       return;
     }
   
-    this.carregando = true;
+    this.carregando.set(true);
     this.emailService.enviarEmail(cpf_cnpj).finally(() => {
-      this.carregando = false;
+      this.carregando.set(false);
     });
   }
 

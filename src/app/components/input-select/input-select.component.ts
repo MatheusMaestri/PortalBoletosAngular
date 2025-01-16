@@ -22,15 +22,15 @@ export class InputSelectComponent implements ControlValueAccessor {
   @Input() formControlName!: string;
   @Input() nomeInput: string = '';
   @Input() label: string = '';
+  @Input() placeholder: string = '';
   @Input() options: { value: string; label: string }[] = [];
 
-  control = new FormControl(); // Mantém o controle
+  control = new FormControl();
 
   onChange: any = () => {};
   onTouched: any = () => {};
 
   constructor() {
-    // Atualiza o `ControlValueAccessor` sempre que o valor do controle muda
     this.control.valueChanges.subscribe((value) => {
       this.onChange(value);
       this.onTouched();
@@ -38,7 +38,7 @@ export class InputSelectComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    this.control.setValue(value, { emitEvent: false }); // Atualiza o valor sem emitir eventos extras
+    this.control.setValue(value, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {

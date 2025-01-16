@@ -19,7 +19,7 @@
     </form>
 
     <button [disabled]="carregando" (click)="reenviarCodAcesso()" class="reenviarEmail">
-        {{ carregando ? 'Enviando...' : 'Reenviar Código de Acesso' }}
+        {{ carregando() ? 'Enviando...' : 'Reenviar Código de Acesso' }}
     </button>
 </app-login-padrao>
 

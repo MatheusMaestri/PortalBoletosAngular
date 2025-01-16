@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,9 +22,8 @@ import { MascaraCnpjCpfService } from '../../services/marcara-cnpj-cpf.service';
 })
 export class CadastroComponent {
   formularioCadastro!: FormGroup
-  emailCliente: string = ""
-  carregando: boolean = false
-  isCNPJ: boolean = false;
+  carregando = signal(false)
+  isCNPJ = signal(false);
 
   constructor(
     private router: Router,
@@ -50,13 +49,13 @@ export class CadastroComponent {
   limitarEntrada(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/\D/g, '');
-    this.isCNPJ = value.length > 11;
+    this.isCNPJ.set(value.length > 11)
   
     if (value.length > 14) {
       value = value.slice(0, 14);
     }
   
-    const formattedValue = this.isCNPJ
+    const formattedValue = this.isCNPJ()
       ? this.mascaraCnpjCpfService.formatarCNPJ(value)
       : this.mascaraCnpjCpfService.formatarCPF(value);
   
@@ -65,7 +64,7 @@ export class CadastroComponent {
   }
 
   submit(){
-    this.carregando = true
+    this.carregando.set(true)
     const { cnpj_cpf } = this.formularioCadastro.value;
     const rawCnpjCpf = cnpj_cpf.replace(/\D/g, '');
 
@@ -76,10 +75,10 @@ export class CadastroComponent {
 
     this.loginService.cadastro(rawCnpjCpf).subscribe({
       next: (resposta) => {
-        this.carregando = false
+        this.carregando.set(false)
 
         if(resposta.cliente_existe && resposta.primeiro_acesso){
-          this.carregando = true
+          this.carregando.set(true)
           sessionStorage.setItem('cnpj_cpf', rawCnpjCpf)
           this.enviarEmail()
         } else if (resposta.cliente_existe && !resposta.primeiro_acesso){
@@ -90,7 +89,7 @@ export class CadastroComponent {
         }
       },
       error: () => {
-        this.carregando = false
+        this.carregando.set(false)
         this.toastr.error("Ocorreu um erro, tente novamente")
       }
     })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { LoginPadraoComponent } from '../../components/login-padrao/login-padrao.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextoComponent } from '../../components/input-texto/input-texto.component';
@@ -25,8 +25,8 @@ import { MascaraCnpjCpfService } from '../../services/marcara-cnpj-cpf.service';
 })
 export class LoginComponent implements OnInit {
   formularioLogin!: FormGroup;
-  carregando: boolean = true;
-  isCNPJ: boolean = false;
+  carregando = signal(true);
+  isCNPJ = signal(false);
 
   constructor(
     private router: Router,
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.carregando = false;
+    this.carregando.set(false);
     this.inicializarFormulario();
   }
 
@@ -53,13 +53,13 @@ export class LoginComponent implements OnInit {
   limitarEntrada(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/\D/g, '');
-    this.isCNPJ = value.length > 11;
+    this.isCNPJ.set(value.length > 11)
   
     if (value.length > 14) {
       value = value.slice(0, 14);
     }
   
-    const formattedValue = this.isCNPJ
+    const formattedValue = this.isCNPJ()
       ? this.maskUtils.formatarCNPJ(value)
       : this.maskUtils.formatarCPF(value);
   
@@ -76,11 +76,11 @@ export class LoginComponent implements OnInit {
     const { cnpj_cpf, senha } = this.formularioLogin.value;
     const rawCnpjCpf = cnpj_cpf.replace(/\D/g, '');
 
-    this.carregando = true;
+    this.carregando.set(true);
 
     this.loginService.login(rawCnpjCpf, senha).subscribe({
       next: (resposta) => {
-        this.carregando = false;
+        this.carregando.set(false);
 
         if (resposta.result === 'login efetuado com sucesso.') {
           this.toastr.success('Bem Vindo!');
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
       },
       error: () => {
         this.toastr.error('Ocorreu um erro. Tente novamente mais tarde.');
-        this.carregando = false;
+        this.carregando.set(false);
       }
     });
   }

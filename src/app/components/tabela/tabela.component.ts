@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe, registerLocaleData } from '@angular/common';
-import { Component, LOCALE_ID, OnDestroy, OnInit} from '@angular/core';
+import { Component, LOCALE_ID, OnDestroy, OnInit, signal} from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { LoginService } from '../../services/login.service';
 import localeBr from '@angular/common/locales/pt';
@@ -31,12 +31,10 @@ registerLocaleData(localeBr);
   styleUrl: './tabela.component.css'
 })
 export class TabelaComponent implements OnInit, OnDestroy  {
-  displayedColumns: string[] = ['Titulo', 'Parcela', 'Vencimento', 'Valor', 'Status', 'Boleto', 'DANFe'];
   dataSource = new MatTableDataSource<any>();
-  carregando: boolean = true;
-  redirecionandoImpressao: boolean = false;
-  redirecionandoDANFe: boolean = false;
-  cnpj_cpf: number | undefined;
+  carregando = signal(true);
+  redirecionandoImpressao = signal(false);
+  redirecionandoDANFe = signal(false);
   private unsubscribe$ = new Subject<void>();
   
   constructor(
@@ -65,7 +63,7 @@ export class TabelaComponent implements OnInit, OnDestroy  {
             return item;
           });
           
-          this.carregando = false;
+          this.carregando.set(false);
         },
         error: (err) => {
           console.error('Erro ao carregar dados:', err);
@@ -73,7 +71,7 @@ export class TabelaComponent implements OnInit, OnDestroy  {
             duration: 5000,
             panelClass: ['snack-bar-error']
           });
-          this.carregando = false;
+          this.carregando.set(false);
         }
       });
     } else {
@@ -81,7 +79,7 @@ export class TabelaComponent implements OnInit, OnDestroy  {
         duration: 5000,
         panelClass: ['snack-bar-warning']
       });
-      this.carregando = false;
+      this.carregando.set(false);
     }
   }
    
@@ -122,34 +120,34 @@ export class TabelaComponent implements OnInit, OnDestroy  {
   }
 
   imprimirBoleto(titulo: string, parcela: string, serie: string, cod_empresa: number) {
-    this.redirecionandoImpressao = true;
+    this.redirecionandoImpressao.set(true);
     this.loginService.gerarBoleto(titulo, parcela, serie, cod_empresa).subscribe({
       next: (data: any) => {
-        this.redirecionandoImpressao = false;
+        this.redirecionandoImpressao.set(false);
         const arquivo = data.arquivo;
         const blob = new Blob([atob(arquivo)], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         window.open(url, '_blank')?.print();
       },
       error: (err) => {
-        this.redirecionandoImpressao = false;
+        this.redirecionandoImpressao.set(false);
         console.error('Erro ao gerar boleto:', err);
       }
     });
   }
 
   gerarDANFe(titulo: string, serie: string, cod_empresa: number) {
-    this.redirecionandoDANFe = true;
+    this.redirecionandoDANFe.set(true);
     this.loginService.gerarDanfe(titulo, serie, cod_empresa).subscribe({
       next: (data: any) => {
-        this.redirecionandoDANFe = false;
+        this.redirecionandoDANFe.set(false);
         const arquivo = data.arquivo;
         const blob = new Blob([atob(arquivo)], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         window.open(url, '_blank');
       },
       error: (err) => {
-        this.redirecionandoDANFe = false;
+        this.redirecionandoDANFe.set(false);
         console.error('Erro ao gerar DANFe:', err);
       }
     });

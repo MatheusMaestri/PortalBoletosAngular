@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar'
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,9 +16,8 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  @Input() nomeCliente: string = ""
-  cnpj_cpf: number | undefined 
-  carregando: boolean = true
+  nomeCliente = signal('')
+  carregando = signal(true)
 
   constructor( 
     private loginService: LoginService,
@@ -34,12 +33,12 @@ export class HeaderComponent {
     if (cnpj_cpf) {
       this.loginService.pegarInfoCliente(cnpj_cpf).subscribe({
         next: (data) => {
-          this.nomeCliente = data.result[0][0].Razao_Social
-          this.carregando = false
+          this.nomeCliente.set(data.result[0][0].Razao_Social)
+          this.carregando.set(false)
         },
         error: (err) => {
           console.error('Erro ao pegar informações do cliente:', err);
-          this.carregando = false
+          this.carregando.set(false)
         }
       });
     } else {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 type InputType = "text" | "email" | "password" | "number" | "date"
@@ -21,37 +21,37 @@ type InputType = "text" | "email" | "password" | "number" | "date"
   styleUrl: './input-texto.component.css'
 })
 export class InputTextoComponent implements ControlValueAccessor {
-  @Input() type: InputType = "text"
-  @Input() placeholder: string = ""
-  @Input() label: string = ""
-  @Input() nomeInput: string = ""
+  @Input() type: InputType = 'text';
+  @Input() placeholder: string = '';
+  @Input() label: string = '';
+  @Input() nomeInput: string = '';
   @Input() temIcone: boolean = true;
-  
-  value: string = ''
-  onChange: any = () => {}
-  onTouched: any = () => {}
-  
-  onInput(event: Event){
-    const value = (event.target as HTMLInputElement).value
-    this.onChange(value)
-  }
-  
-  writeValue(value: any): void {
-    this.value = value
-  }
 
-  onInputChange(value: any): void {
-    this.value = value;
+  value = signal('');
+  isDisabled = signal(false);
+  onChange: (value: string) => void = () => {};
+  onTouched: () => void = () => {};
+
+  onInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.value.set(value);
     this.onChange(value);
-  }
-  
-  registerOnChange(fn: any): void {
-    this.onChange = fn
-  }
-  
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn
+    this.onTouched();
   }
 
-  setDisabledState(isDisabled: boolean): void {}
+  writeValue(value: string): void {
+    this.value.set(value || '');
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled.set(isDisabled)
+  }
 }

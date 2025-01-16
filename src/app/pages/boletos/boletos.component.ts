@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { TabelaComponent } from '../../components/tabela/tabela.component';
 import { LoginService } from '../../services/login.service';
 import { SemBoletosComponent } from '../../components/sem-boletos/sem-boletos.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-boletos',
@@ -11,13 +12,13 @@ import { SemBoletosComponent } from '../../components/sem-boletos/sem-boletos.co
     HeaderComponent,
     TabelaComponent,
     SemBoletosComponent,
+    FooterComponent
   ],
   templateUrl: './boletos.component.html',
   styleUrl: './boletos.component.css'
 })
 export class BoletosComponent implements OnInit {
-  possuiBoleto: boolean = true
-  cnpj_cpf: number | undefined;
+  possuiBoleto = signal(true)
 
   constructor(
     private loginService: LoginService
@@ -33,14 +34,14 @@ export class BoletosComponent implements OnInit {
       this.loginService.pegarTitulos(cnpj_cpf).subscribe({
         next: (data) => {
           if (data.result[0].length === 0) {
-            this.possuiBoleto = false;
+            this.possuiBoleto.set(false);
           } else {
-            this.possuiBoleto = true;
+            this.possuiBoleto.set(true);
           }
         },
         error: (err) => {
           console.error('Erro ao acessar a API:', err);
-          this.possuiBoleto = false;
+          this.possuiBoleto.set(false);
         }
       });
     } else {

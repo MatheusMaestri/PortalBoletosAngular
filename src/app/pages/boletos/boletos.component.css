@@ -4,8 +4,9 @@ main{
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 100dvh;
-    margin-top: 60px;
+    height: 80vh;
+    margin-top: 50px;
+    flex-grow: 1;
 }
 
 h1::after{
@@ -14,6 +15,13 @@ h1::after{
     height: 2px;
     width: 100%;
     background-color: var(--cor-primaria);
+}
+
+footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

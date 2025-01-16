@@ -21,10 +21,10 @@
         <button 
           type="button" 
           class="btn" 
-          [ngClass]="copiar ? 'btn-success' : 'btn-primary'" 
+          [ngClass]="copiar() ? 'btn-success' : 'btn-primary'" 
           (click)="copiarCodigoBarras()"
         >
-          {{ copiar ? 'Copiado' : 'Copiar' }}
+          {{ copiar() ? 'Copiado' : 'Copiar' }}
         </button>
       </div>
     </div>

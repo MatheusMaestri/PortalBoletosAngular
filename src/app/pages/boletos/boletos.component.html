@@ -1,9 +1,12 @@
 <app-header />
 <main>
     <h1>Portal Boletos</h1>
-    @if (possuiBoleto) {
-        <app-tabela></app-tabela>
+    @if (possuiBoleto()) {
+        <app-tabela />
     } @else {
         <app-sem-boletos />
     }
 </main>
+<footer>
+    <app-footer />
+</footer>
