@@ -26,7 +26,7 @@
               <div class="conteudo">
                 <p><strong>Parcela:</strong> {{ element.Parcela }}</p>
                 <p><strong>Vencimento:</strong> {{ element.Vencimento }}</p>
-                <p><strong>Valor:</strong> {{ element.Valor_Original | currency: 'BRL' }}</p>
+                <p><strong>Valor:</strong> {{ element.Valor_receber | currency: 'BRL'}}</p>
                 <p><strong>Status:</strong> {{ element.EnviadoCartorio ? 'Em aberto' : 'Cartório' }}</p>
               </div>
               <div class="botoes-tabela">

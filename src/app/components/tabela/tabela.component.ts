@@ -57,11 +57,12 @@ export class TabelaComponent implements OnInit, OnDestroy  {
     if (cnpj_cpf) {
       this.loginService.pegarTitulos(cnpj_cpf).pipe(takeUntil(this.unsubscribe$)).subscribe({
         next: (data) => {
-            this.dataSource.data = data.result[0].map(item => {
-            const valorOriginal = parseFloat(item.Valor_Original.toString());
-            item.Valor_Original = !isNaN(valorOriginal) ? valorOriginal : 0;
+          console.log(data);
+          this.dataSource.data = data.result[0].map(item => {
+            const valorReceber = parseFloat(item.Valor_receber.replace(',', '.'));
+            item.Valor_receber = !isNaN(valorReceber) ? valorReceber.toFixed(2) : "0.00";
             return item;
-          });
+        });
           
           this.carregando.set(false);
         },
