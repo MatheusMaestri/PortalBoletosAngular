@@ -11,8 +11,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
     InputSelectComponent,
     ReactiveFormsModule,
   ],
-  templateUrl: './filtro.component.html',
-  styleUrl: './filtro.component.css'
+  templateUrl: './filtro.component.html'
 })
 export class FiltroComponent implements OnInit {
   @Output() filtroAlterado = new EventEmitter<any>();

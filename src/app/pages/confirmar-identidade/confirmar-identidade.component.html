@@ -9,7 +9,7 @@
         (navegar)="navegar()"
         [btnEstaHabilitado]="!confirmarIdentidade.valid"
     >
-        <form [formGroup]="confirmarIdentidade">
+        <form [formGroup]="confirmarIdentidade" class="form-padrao">
             <app-input-texto
                 formControlName="cnpj_cpf"
                 nomeInput="cnpj_cpf"

@@ -12,8 +12,7 @@ import { Router } from '@angular/router';
     MatIconModule,
     MatButtonModule
   ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   nomeCliente = signal('')

@@ -13,8 +13,7 @@ import { InputTextoComponent } from '../../components/input-texto/input-texto.co
     InputTextoComponent,
     ReactiveFormsModule
   ],
-  templateUrl: './definir-senha.component.html',
-  styleUrl: './definir-senha.component.css'
+  templateUrl: './definir-senha.component.html'
 })
 export class DefinirSenhaComponent {
   definirSenha!: FormGroup

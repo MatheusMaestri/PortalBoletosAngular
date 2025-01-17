@@ -15,8 +15,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModu
       multi: true 
     }
   ],
-  templateUrl: './input-select.component.html',
-  styleUrl: './input-select.component.css'
+  templateUrl: './input-select.component.html'
 })
 export class InputSelectComponent implements ControlValueAccessor {
   @Input() formControlName!: string;

@@ -4,9 +4,11 @@
     <ng-container>
         <app-carregando class="tabela-dinamica"/>
     </ng-container>
+} @else if (mensagemFiltro()) {
+    <p class="mensagem-filtro" [innerHTML]="mensagemFiltro()"></p>
 } @else {
   <div class="tabela-dinamica">
-    <div class="table">
+    <div class="tabela-titulos">
       <mat-accordion>
         @for (element of dataSource.filteredData; track element) {
           <mat-expansion-panel>
@@ -20,14 +22,14 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <div class="container">
+            <div class="container-tabela">
               <div class="conteudo">
                 <p><strong>Parcela:</strong> {{ element.Parcela }}</p>
                 <p><strong>Vencimento:</strong> {{ element.Vencimento }}</p>
                 <p><strong>Valor:</strong> {{ element.Valor_Original | currency: 'BRL' }}</p>
                 <p><strong>Status:</strong> {{ element.EnviadoCartorio ? 'Em aberto' : 'Cartório' }}</p>
               </div>
-              <div class="botoes">
+              <div class="botoes-tabela">
                 <button 
                   class="btn btn-primary"
                   (click)="gerarDANFe(element.Titulo, element.serie_nf, element.Empresa)"

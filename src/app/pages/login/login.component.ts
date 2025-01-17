@@ -20,8 +20,7 @@ import { MascaraCnpjCpfService } from '../../services/marcara-cnpj-cpf.service';
   providers: [
     LoginService
   ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
   formularioLogin!: FormGroup;

@@ -1,8 +1,8 @@
-<div class="form-group">
-  <label [for]="nomeInput">{{ label }}</label>
+<div class="form-group-select">
+  <label [for]="nomeInput" class="label-select">{{ label }}</label>
   <select 
     [id]="nomeInput"
-    class="form-control" 
+    class="select-opts" 
     [formControl]="control"
   >
   @for (option of options; track option) {

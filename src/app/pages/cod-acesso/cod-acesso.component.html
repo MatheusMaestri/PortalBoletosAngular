@@ -6,7 +6,7 @@
     (navegar)="navegar()"
     [btnEstaHabilitado]="!formularioCodAcesso.valid"
 >
-    <form [formGroup]="formularioCodAcesso">
+    <form [formGroup]="formularioCodAcesso" class="form-padrao">
         <app-input-texto
             formControlName="codAcesso"
             nomeInput="codAcesso"

@@ -17,8 +17,7 @@ import { CarregandoComponent } from "../../components/carregando/carregando.comp
     ReactiveFormsModule, 
     CarregandoComponent
   ],
-  templateUrl: './confirmar-identidade.component.html',
-  styleUrl: './confirmar-identidade.component.css'
+  templateUrl: './confirmar-identidade.component.html'
 })
 export class ConfirmarIdentidadeComponent {
   confirmarIdentidade!: FormGroup

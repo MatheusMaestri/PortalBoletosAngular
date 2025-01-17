@@ -17,8 +17,7 @@ type InputType = "text" | "email" | "password" | "number" | "date"
       multi: true 
     }
   ],
-  templateUrl: './input-texto.component.html',
-  styleUrl: './input-texto.component.css'
+  templateUrl: './input-texto.component.html'
 })
 export class InputTextoComponent implements ControlValueAccessor {
   @Input() type: InputType = 'text';

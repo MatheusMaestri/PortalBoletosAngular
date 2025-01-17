@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-modal',
   imports: [CommonModule],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+  templateUrl: './modal.component.html'
 })
 export class ModalComponent {
   @ViewChild('modalCodBarras') modalCodBarras: ElementRef | undefined;

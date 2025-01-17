@@ -6,7 +6,7 @@
     (navegar)="navegar()"
     [btnEstaHabilitado]="!definirSenha.valid"
 >
-    <form [formGroup]="definirSenha">
+    <form [formGroup]="definirSenha"  class="form-padrao">
         <app-input-texto
             formControlName="senha"
             type="password"

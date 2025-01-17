@@ -27,14 +27,14 @@ registerLocaleData(localeBr);
   providers:    [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
-  templateUrl: './tabela.component.html',
-  styleUrl: './tabela.component.css'
+  templateUrl: './tabela.component.html'
 })
 export class TabelaComponent implements OnInit, OnDestroy  {
   dataSource = new MatTableDataSource<any>();
   carregando = signal(true);
   redirecionandoImpressao = signal(false);
   redirecionandoDANFe = signal(false);
+  mensagemFiltro = signal('');
   private unsubscribe$ = new Subject<void>();
   
   constructor(
@@ -117,6 +117,21 @@ export class TabelaComponent implements OnInit, OnDestroy  {
     };
   
     this.dataSource.filter = JSON.stringify(filtro);
+  
+    if (this.dataSource.filteredData.length === 0) {
+      const valoresPreenchidos = Object.entries(filtro)
+        .filter(([_, value]) => value)
+        .map(([_, value]) => `${value}`)
+        .join(', ');
+  
+      this.mensagemFiltro.set(
+        valoresPreenchidos
+        ? `Filtro <b>'${valoresPreenchidos}'</b> não encontrou resultados.`
+        : 'Nenhum resultado encontrado.'
+      )
+    } else {
+      this.mensagemFiltro.set('')
+    }
   }
 
   imprimirBoleto(titulo: string, parcela: string, serie: string, cod_empresa: number) {

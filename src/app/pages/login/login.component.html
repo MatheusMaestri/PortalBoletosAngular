@@ -9,7 +9,7 @@
         (navegar)="navegarParaCadastro()"
         [btnEstaHabilitado]="!formularioLogin.valid"
     >
-        <form [formGroup]="formularioLogin">
+        <form [formGroup]="formularioLogin"  class="form-padrao">
             <app-input-texto
                 formControlName="cnpj_cpf"
                 nomeInput="cnpj_cpf"
@@ -30,7 +30,7 @@
             >
                 <img src="img/senha.svg" height="20px" alt="">
             </app-input-texto>
-            <span><a [routerLink]="['confirmarIdentidade']">Esqueceu a senha?</a></span>
+            <span class="esqueceu-senha"><a [routerLink]="['confirmarIdentidade']">Esqueceu a senha?</a></span>
         </form>
     </app-login-padrao>
 }

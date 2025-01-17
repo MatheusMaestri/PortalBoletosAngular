@@ -1,11 +1,11 @@
-<main (keydown.enter)="submit()">
-    <section class="formulario">
+<main (keydown.enter)="submit()" class="main-login-padrao">
+    <section class="formulario-login-padrao section-padrao">
         <img src="/img/empresa.png" width="200px" alt="">
         <h2>{{ titulo }}</h2>
         <ng-content></ng-content>
-        <div class="botoes">
+        <div class="botoes-login-padrao">
             <button 
-                class="primeiroBtn"
+                class="button-login-padrao primeiroBtn"
                 (click)="submit()"
                 [disabled]="btnEstaHabilitado"
             >
@@ -19,15 +19,15 @@
             </div>
             
             <button 
-                class="segundoBtn" 
+                class="button-login-padrao segundoBtn" 
                 (click)="navegar()"
             >
                 {{ segundoBtn }}
             </button>
         </div>
     </section>
-    <section class="imagem-login">
-        <h1>Portal Boletos</h1>
+    <section class="imagem-login section-padrao">
+        <h1 class="h1-login-padrao">Portal Boletos</h1>
         <img src="/img/imgBoleto.png" alt="Boleto" loading="eager">
     </section>
 </main>

@@ -17,8 +17,7 @@ import { MascaraCnpjCpfService } from '../../services/marcara-cnpj-cpf.service';
     ReactiveFormsModule,
     CarregandoComponent
   ],
-  templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.css'
+  templateUrl: './cadastro.component.html'
 })
 export class CadastroComponent {
   formularioCadastro!: FormGroup

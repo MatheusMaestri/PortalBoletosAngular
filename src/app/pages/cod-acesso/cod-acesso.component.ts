@@ -14,8 +14,7 @@ import { EmailService } from '../../services/email.service';
     InputTextoComponent,
     ReactiveFormsModule,
   ],
-  templateUrl: './cod-acesso.component.html',
-  styleUrl: './cod-acesso.component.css'
+  templateUrl: './cod-acesso.component.html'
 })
 export class CodAcessoComponent {
   formularioCodAcesso!: FormGroup

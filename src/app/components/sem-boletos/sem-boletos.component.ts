@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-sem-boletos',
   standalone: true,
   imports: [],
-  templateUrl: './sem-boletos.component.html',
-  styleUrl: './sem-boletos.component.css'
+  templateUrl: './sem-boletos.component.html'
 })
 export class SemBoletosComponent {
 

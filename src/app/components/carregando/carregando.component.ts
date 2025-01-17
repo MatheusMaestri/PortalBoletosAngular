@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-carregando',
   imports: [],
   templateUrl: './carregando.component.html',
-  styleUrl: './carregando.component.css'
 })
 export class CarregandoComponent {
 

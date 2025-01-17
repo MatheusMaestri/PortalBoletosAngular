@@ -3,8 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-login-padrao',
   imports: [],
-  templateUrl: './login-padrao.component.html',
-  styleUrl: './login-padrao.component.css'
+  templateUrl: './login-padrao.component.html'
 })
 export class LoginPadraoComponent {
   @Input() titulo: string = ""

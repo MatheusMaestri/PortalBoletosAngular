@@ -14,10 +14,9 @@ import { FooterComponent } from '../../components/footer/footer.component';
     SemBoletosComponent,
     FooterComponent
   ],
-  templateUrl: './boletos.component.html',
-  styleUrl: './boletos.component.css'
+  templateUrl: './boletos.component.html'
 })
-export class BoletosComponent implements OnInit {
+export default class BoletosComponent implements OnInit {
   possuiBoleto = signal(true)
 
   constructor(
