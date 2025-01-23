@@ -43,8 +43,13 @@ export class DefinirSenhaComponent {
       this.toastr.error("As senhas não coincidem!");
       return;
     }
+
+    const usuarioRecuperarSenha = {
+      cnpj_cpf: cnpj_cpf,
+      senha: senha
+    }
   
-    this.loginService.recuperarSenha(cnpj_cpf, senha).subscribe({
+    this.loginService.recuperarSenha(usuarioRecuperarSenha).subscribe({
       next: (resposta) => {
         if (resposta.result === "sucesso") {
           this.toastr.success("Senha definida com sucesso!");

@@ -7,10 +7,6 @@ export interface RespostaEmail {
     resultado: string
 }
 
-export interface RespostaValidacao {
-    resultado: string
-}
-
 export interface RespostaDANFe{
     arquivo: string
 }
@@ -85,4 +81,27 @@ interface RespostaInfoCliente{
 
 export interface ApiRespostaInfoCliente {
     result: RespostaInfoCliente[][];
+}
+
+export interface LogarCliente {
+    cnpj_cpf: string,
+    senha: string
+}
+
+export interface CodAcesso{
+    cnpj_cpf: string,
+    cod_acesso: number
+}
+
+export interface GerarBoleto {
+    titulo: string, 
+    parcela: string,
+    serie: string,
+    cod_empresa: number
+}
+
+export interface GerarDanfe {
+    titulo: string, 
+    serie: string, 
+    cod_empresa: number
 }

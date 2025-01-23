@@ -39,7 +39,12 @@ export class CodAcessoComponent {
       return
     }
 
-    this.loginService.validarCodAcesso(cpf_cnpj, this.formularioCodAcesso.value.codAcesso).subscribe({
+    const codAcesso = {
+      cnpj_cpf: cpf_cnpj,
+      cod_acesso: this.formularioCodAcesso.value.codAcesso
+    }
+
+    this.loginService.validarCodAcesso(codAcesso).subscribe({
       next: (resposta) => {
         if(resposta.resultado){
           this.router.navigate(["definirSenha"])

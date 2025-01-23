@@ -9,6 +9,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Subject, takeUntil } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GerarBoleto, GerarDanfe } from '../../interface/validacao-cliente.interface';
 
 registerLocaleData(localeBr);
 
@@ -136,8 +137,11 @@ export class TabelaComponent implements OnInit, OnDestroy  {
   }
 
   imprimirBoleto(titulo: string, parcela: string, serie: string, cod_empresa: number) {
+
+    const gerarBoleto = { titulo, parcela, serie, cod_empresa };
+
     this.redirecionandoImpressao.set(true);
-    this.loginService.gerarBoleto(titulo, parcela, serie, cod_empresa).subscribe({
+    this.loginService.gerarBoleto(gerarBoleto).subscribe({
       next: (data: any) => {
         this.redirecionandoImpressao.set(false);
         const arquivo = data.arquivo;
@@ -153,8 +157,10 @@ export class TabelaComponent implements OnInit, OnDestroy  {
   }
 
   gerarDANFe(titulo: string, serie: string, cod_empresa: number) {
+    const gerarDanfe = { titulo, serie, cod_empresa };
+  
     this.redirecionandoDANFe.set(true);
-    this.loginService.gerarDanfe(titulo, serie, cod_empresa).subscribe({
+    this.loginService.gerarDanfe(gerarDanfe).subscribe({
       next: (data: any) => {
         this.redirecionandoDANFe.set(false);
         const arquivo = data.arquivo;
@@ -168,4 +174,5 @@ export class TabelaComponent implements OnInit, OnDestroy  {
       }
     });
   }
+  
 }

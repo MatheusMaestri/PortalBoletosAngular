@@ -7,6 +7,7 @@ import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { CarregandoComponent } from '../../components/carregando/carregando.component';
 import { MascaraCnpjCpfService } from '../../services/marcara-cnpj-cpf.service';
+import { LogarCliente } from '../../interface/validacao-cliente.interface';
 
 @Component({
   selector: 'app-login',
@@ -77,7 +78,12 @@ export class LoginComponent implements OnInit {
 
     this.carregando.set(true);
 
-    this.loginService.login(rawCnpjCpf, senha).subscribe({
+    const usuario: LogarCliente = {
+      cnpj_cpf: rawCnpjCpf,
+      senha: senha
+    };
+
+    this.loginService.login(usuario).subscribe({
       next: (resposta) => {
         this.carregando.set(false);
 

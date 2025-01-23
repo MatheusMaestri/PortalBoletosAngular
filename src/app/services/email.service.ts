@@ -33,7 +33,7 @@ export class EmailService {
         next: () => {
           this.getEmailCliente(cpf_cnpj)
             .then((email) => {
-              this.toastr.info(`Email enviado para ${email}, verifique sua caixa de entrada.`);
+              this.toastr.info(`Email enviado para (${email}), verifique sua caixa de entrada.`);
               this.router.navigate(["codAcesso"]);
               resolve();
             })

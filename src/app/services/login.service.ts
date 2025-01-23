@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RespostaLogin } from '../interface/resposta-login.interface';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ApiRespostaInfoCliente, ApiRespostaTitulos, RespostaApiBoleto, RespostaDANFe, RespostaEmail, ValidacaoCliente } from '../interface/validacao-cliente.interface';
+import { ApiRespostaInfoCliente, ApiRespostaTitulos, CodAcesso, GerarBoleto, GerarDanfe, LogarCliente, RespostaApiBoleto, RespostaDANFe, RespostaEmail, ValidacaoCliente } from '../interface/validacao-cliente.interface';
 import { MensagensService } from './mensagens.service';
 
 @Injectable({
@@ -17,10 +17,10 @@ export class LoginService {
     private mensagens: MensagensService
   ) { }
 
-  login(cnpj_cpf: string, senha: string){
+  login(usuario: LogarCliente){
     return this.httpClient.post<RespostaLogin>(
       `${this.url}loginSenha.php`, 
-      {cnpj_cpf, senha}
+      usuario
     ).pipe(
       tap((value) => {
         sessionStorage.setItem('cnpj_cpf', value.result)
@@ -58,10 +58,10 @@ export class LoginService {
     )
   }
 
-  validarCodAcesso(cnpj_cpf: string, cod_acesso: number){
+  validarCodAcesso(codigo: CodAcesso){
     return this.httpClient.post<RespostaEmail>(
       `${this.url}validacao.php`, 
-      {cnpj_cpf, cod_acesso}
+      codigo
     ).pipe(
       tap((value) => {
         this.mensagens.logInfo('Validação efetuada com sucesso!', value)
@@ -73,10 +73,10 @@ export class LoginService {
     )
   }
 
-  recuperarSenha(cnpj_cpf: string, senha: string){
+  recuperarSenha(usuario: LogarCliente){
     return this.httpClient.post<RespostaLogin>(
-      `${this.url}definirSenha.php?${cnpj_cpf}`, 
-      {cnpj_cpf, senha}
+      `${this.url}definirSenha.php?${usuario.cnpj_cpf}`, 
+      usuario
     ).pipe(
       tap((value) => {
         this.mensagens.logInfo('Senha alterada com sucesso!', value)
@@ -118,9 +118,9 @@ export class LoginService {
     )
   }
 
-  gerarBoleto(titulo: string, parcela: string, serie: string, cod_empresa: number){
+  gerarBoleto(boleto: GerarBoleto){
     return this.httpClient.get<RespostaApiBoleto>(
-      `${this.url}boletos.php?pTitulo=${titulo}&pParcela=${parcela}&pSerie=${serie}&pCodEmpresa=${cod_empresa}&cache=${this.semCache}`
+      `${this.url}boletos.php?pTitulo=${boleto.titulo}&pParcela=${boleto.parcela}&pSerie=${boleto.serie}&pCodEmpresa=${boleto.cod_empresa}&cache=${this.semCache}`
     ).pipe(
       tap((value) => {
         this.mensagens.logInfo('Boleto gerado com sucesso!', value)
@@ -132,9 +132,9 @@ export class LoginService {
     )
   }
 
-  gerarDanfe(titulo: string, serie: string, cod_empresa: number){
+  gerarDanfe(danfe: GerarDanfe){
     return this.httpClient.get<RespostaDANFe>(
-      `${this.url}danfe.php?pNF=${titulo}&pSerie=${serie}&pCodEmpresa=${cod_empresa}&cache=${this.semCache}`
+      `${this.url}danfe.php?pNF=${danfe.titulo}&pSerie=${danfe.serie}&pCodEmpresa=${danfe.cod_empresa}&cache=${this.semCache}`
     ).pipe(
       tap((value) => {
         this.mensagens.logInfo('Danfe gerado com sucesso!', value)

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, signal, ViewChild } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
+import { GerarBoleto } from '../../interface/validacao-cliente.interface';
 
 @Component({
   selector: 'app-modal',
@@ -34,11 +35,14 @@ export class ModalComponent {
   }
 
   gerarCodBarras(titulo: string, parcela: string, serie: string, cod_empresa: number) {
+
+    const gerarCodBarras = { titulo, parcela, serie, cod_empresa };
+
     this.carregando.set(true);
-    this.loginService.gerarBoleto(titulo, parcela, serie, cod_empresa).subscribe({
+    this.loginService.gerarBoleto(gerarCodBarras).subscribe({
       next: (data: any) => {
         this.carregando.set(false);
-        this.configurarDados(titulo, data.codbarras);
+        this.configurarDados(gerarCodBarras.titulo, data.codbarras);
       },
       error: (err) => {
         this.carregando.set(false);
