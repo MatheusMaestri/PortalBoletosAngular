@@ -1,16 +1,16 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 export const guardGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const temCnpjCpf = sessionStorage.getItem('cnpj_cpf');
+  const authService = inject(AuthService);
 
-  if (!temCnpjCpf) {
+  if (!authService.isLoggedIn()) {
     router.navigate(['/']);
     return false;
-  } else{
-    return true;
   }
+  return true;
 
 };
