@@ -58,7 +58,6 @@ export class TabelaComponent implements OnInit, OnDestroy  {
     if (cnpj_cpf) {
       this.loginService.pegarTitulos(cnpj_cpf).pipe(takeUntil(this.unsubscribe$)).subscribe({
         next: (data) => {
-          console.log(data);
           this.dataSource.data = data.result[0].map(item => {
             const valorReceber = parseFloat(item.Valor_receber.replace(',', '.'));
             item.Valor_receber = !isNaN(valorReceber) ? valorReceber.toFixed(2) : "0.00";
@@ -68,7 +67,6 @@ export class TabelaComponent implements OnInit, OnDestroy  {
           this.carregando.set(false);
         },
         error: (err) => {
-          console.error('Erro ao carregar dados:', err);
           this.snackBar.open('Erro ao carregar os dados!', 'Fechar', {
             duration: 5000,
             panelClass: ['snack-bar-error']

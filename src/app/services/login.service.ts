@@ -118,19 +118,24 @@ export class LoginService {
     )
   }
 
-  gerarBoleto(boleto: GerarBoleto){
+  private handleError(method: string) {
+    return (error: any) => {
+      this.mensagens.logError(`Erro em ${method}:`, error);
+      return throwError(() => error);
+    };
+  }
+  
+  gerarBoleto(boleto: GerarBoleto) {
     return this.httpClient.get<RespostaApiBoleto>(
       `${this.url}boletos.php?pTitulo=${boleto.titulo}&pParcela=${boleto.parcela}&pSerie=${boleto.serie}&pCodEmpresa=${boleto.cod_empresa}&cache=${this.semCache}`
     ).pipe(
       tap((value) => {
-        this.mensagens.logInfo('Boleto gerado com sucesso!', value)
+        this.mensagens.logInfo('Boleto gerado com sucesso!', value);
       }),
-      catchError((error) => {
-        this.mensagens.logError('Error in gerarBoleto:', error);
-        throw error;
-      })
-    )
+      catchError(this.handleError('gerarBoleto'))
+    );
   }
+  
 
   gerarDanfe(danfe: GerarDanfe){
     return this.httpClient.get<RespostaDANFe>(
